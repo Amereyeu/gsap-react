@@ -1,0 +1,192 @@
+$medium: 1024px;
+$large: 1200px;
+
+@mixin break($breakpoint...) {
+  @if length($breakpoint) ==1 {
+    @media (min-width: nth($breakpoint, 1)) {
+      @content;
+    }
+  } @else {
+    @media (min-width: nth($breakpoint, 1)) and (max-width: nth($breakpoint, 2)) {
+      @content;
+    }
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.25;
+  background: #ddd;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, min-content);
+  gap: 1.2rem;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "numerology"
+    "text";
+  padding-bottom: 10px;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include break($medium) {
+    padding-top: 2.25rem;
+    grid-template-columns: repeat(14, minmax(0, 1fr));
+    grid-template-areas:
+      ". numbering numbering numbering . . images images images images images images images images"
+      ". text text text . . images images images images images images images images";
+  }
+
+  @include break($large) {
+    max-width: 1920px;
+  }
+
+  &__images {
+    grid-area: numerology;
+
+    @include break($medium) {
+      grid-area: images;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-rows: repeat(12, 1fr);
+      grid-template-columns: repeat(12, 1fr);
+      gap: 0.5rem;
+
+      @include break($medium) {
+        grid-template-rows: repeat(11, 73px);
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+        row-gap: 1rem;
+        column-gap: 1rem;
+      }
+
+      img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+      }
+
+      .image-0 {
+        grid-column: 1 / span 7;
+        grid-row: 1 / span 6;
+
+        @include break($medium) {
+          grid-column: 1 / span 6;
+          grid-row: 1 / span 5;
+          margin-left: -45px;
+          padding-right: 45px;
+        }
+      }
+
+      .image-1 {
+        grid-column: 7 / span 5;
+        grid-row: 3 / span 5;
+        padding-right: 10px;
+
+        @include break($medium) {
+          grid-column: 6 / span 3;
+          grid-row: 3 / span 4;
+          padding-right: 0;
+        }
+      }
+
+      .image-2 {
+        grid-column: 1 / span 6;
+        grid-row: 7 / span 5;
+        padding-left: 2rem;
+
+        @include break($medium) {
+          grid-column: 1 / span 5;
+          grid-row: 6 / span 4;
+          padding-left: 45px;
+        }
+      }
+
+      .image-3 {
+        grid-column: 7 / span 5;
+        grid-row: 8 / span 5;
+
+        @include break($medium) {
+          grid-column: 6 / span 3;
+          grid-row: 7 / span 4;
+          padding-right: 45px;
+        }
+      }
+    }
+  }
+
+  &__logo {
+    grid-area: numerology;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+
+    @include break($medium) {
+      grid-area: numbering;
+      align-self: end;
+      justify-self: auto;
+      width: 140px;
+      height: 140px;
+    }
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+      background: transparent;
+
+      @include break($medium) {
+        width: 4rem;
+        height: 4rem;
+      }
+    }
+  }
+
+  &__text {
+    grid-area: text;
+    align-self: top;
+    padding-right: 1rem;
+    margin-left: 2.25rem;
+    margin-right: 2.25rem;
+
+    @include break($medium) {
+      margin-left: 1rem;
+      margin-right: 0;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+
+      @include break($medium) {
+        margin-bottom: 1.25rem;
+        padding-top: 0.5rem;
+      }
+
+      @include break($large) {
+        font-size: 3rem;
+      }
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+}
+

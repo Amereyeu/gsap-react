@@ -164,7 +164,7 @@ $large: 1200px;
 
     @include break($medium) {
       margin-left: 1rem;
-      margin-right: 0;
+      margin-right: 1rem;
     }
 
     h2 {
